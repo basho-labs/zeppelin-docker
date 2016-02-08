@@ -28,11 +28,12 @@ ENV MESOS_NATIVE_JAVA_LIBRARY /usr/lib/libmesos.so
 
 # Install Zeppelin
 RUN \
+  alias node=nodejs && \
   npm install -g grunt phantomjs-prebuilt && \
-  git clone https://github.com/apache/incubator-zeppelin.git && \
-  cd /incubator-zeppelin && \
-  git checkout v0.5.6
-RUN mvn package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
+  git clone https://github.com/apache/incubator-zeppelin.git
+WORKDIR /incubator-zeppelin
+RUN git checkout v0.5.6 && \
+  mvn package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
 COPY zeppelin-env.sh /incubator-zeppelin/conf/zeppelin-env.sh
 
 CMD ["bin/zeppelin.sh", "start"]
