@@ -30,8 +30,8 @@ RUN \
   apt-get install -q -y git && \
   git clone https://github.com/apache/incubator-zeppelin.git && \
   cd /incubator-zeppelin && \
-  git checkout v0.5.6 && \
-  mvn clean package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
+  git checkout v0.5.6
+RUN mvn clean package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
 COPY zeppelin-env.sh /incubator-zeppelin/conf
 
 ENTRYPOINT ["bin/zeppelin.sh", "start"]
