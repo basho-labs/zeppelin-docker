@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
 RUN \
   apt-get update && \
-  apt-get install -q -y software-properties-common git npm nodejs-legacy && \
+  apt-get install -q -y software-properties-common git && \
   add-apt-repository "deb http://repos.mesosphere.io/ubuntu/ trusty main" && \
   add-apt-repository -y ppa:andrei-pozolotin/maven3 && \
   add-apt-repository -y ppa:webupd8team/java
@@ -28,10 +28,12 @@ ENV MESOS_NATIVE_JAVA_LIBRARY /usr/lib/libmesos.so
 
 # Install Zeppelin
 RUN \
-  npm install -g grunt-cli && \
-  git clone https://github.com/apache/incubator-zeppelin.git
+  apt-get install -q -y npm nodejs-legacy libfontconfig && \
+  npm install -g grunt-cli phantomjs-prebuilt && \
+  git clone https://github.com/apache/incubator-zeppelin.git && \
+  cd /incubator-zeppelin && \
+  git checkout v0.5.6
 WORKDIR /incubator-zeppelin
-RUN git checkout v0.5.6
 RUN mvn package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
 COPY zeppelin-env.sh /incubator-zeppelin/conf/zeppelin-env.sh
 
