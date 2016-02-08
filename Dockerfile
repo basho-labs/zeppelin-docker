@@ -34,11 +34,5 @@ RUN \
   mvn clean package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
 COPY zeppelin-env.sh /incubator-zeppelin/conf
 
-ENV MASTER local[*]
-ENV SPARK_EXECUTOR_URI http://d3kbcqa49mib13.cloudfront.net/spark-1.5.2-bin-hadoop2.6.tgz
-ENV ZEPPELIN_JAVA_OPTS -Dspark.executor.uri=$SPARK_EXECUTOR_URI
-ENV ZEPPELIN_IDENT_STRING "Basho MARQS"
-ENV SPARK_SUBMIT_OPTIONS "--repositories https://basholabs.artifactoryonline.com/basholabs/libs-snapshot --packages com.basho.riak:spark-riak-connector:1.2.0-beta1"
-
 CMD ["bin/zeppelin.sh", "start"]
 # ENTRYPOINT bash -l

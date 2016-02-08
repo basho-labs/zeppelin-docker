@@ -5,4 +5,3 @@ export SPARK_EXECUTOR_URI=http://d3kbcqa49mib13.cloudfront.net/spark-1.5.2-bin-h
 #export SPARK_SUBMIT_OPTIONS=""
 
 export ZEPPELIN_JAVA_OPTS="-Dspark.executor.uri=$SPARK_EXECUTOR_URI"
-export ZEPPELIN_IDENT_STRING="Basho MARQS"
