@@ -34,5 +34,5 @@ RUN \
   mvn clean package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
 COPY zeppelin-env.sh /incubator-zeppelin/conf
 
-CMD ["bin/zeppelin.sh", "start"]
+ENTRYPOINT ["bin/zeppelin.sh", "start"]
 # ENTRYPOINT bash -l
