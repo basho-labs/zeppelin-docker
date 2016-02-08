@@ -13,7 +13,7 @@ RUN \
   add-apt-repository -y ppa:webupd8team/java
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF
 RUN apt-get update
-# RUN apt-get dist-upgrade -y
+RUN apt-get dist-upgrade -y
 
 # Install Java.
 RUN \
@@ -27,12 +27,13 @@ ENV MESOS_NATIVE_JAVA_LIBRARY /usr/lib/libmesos.so
 
 # Install Zeppelin
 RUN \
-  apt-get install -q -y git && \
+  apt-get install -q -y git nodejs npm && \
+  npm install grunt && \
   git clone https://github.com/apache/incubator-zeppelin.git && \
   cd /incubator-zeppelin && \
   git checkout v0.5.6
-RUN mvn clean package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
-COPY zeppelin-env.sh /incubator-zeppelin/conf
+RUN mvn package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
+COPY zeppelin-env.sh /incubator-zeppelin/conf/zeppelin-env.sh
 
-ENTRYPOINT ["bin/zeppelin.sh", "start"]
-# ENTRYPOINT bash -l
+CMD ["bin/zeppelin.sh", "start"]
+ENTRYPOINT bash -l
