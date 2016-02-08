@@ -9,7 +9,7 @@ ENV DEBCONF_NONINTERACTIVE_SEEN true
 RUN \
   apt-get install -q -y software-properties-common && \
   add-apt-repository "deb http://repos.mesosphere.io/ubuntu/ trusty main" && \
-  add-apt-repository "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse" && \
+  add-apt-repository -y ppa:andrei-pozolotin/maven3
   add-apt-repository -y ppa:webupd8team/java
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF
 RUN apt-get update
@@ -18,7 +18,7 @@ RUN apt-get update
 # Install Java.
 RUN \
   echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  apt-get install -q -y oracle-java8-installer maven
+  apt-get install -q -y oracle-java8-installer maven=3.3.9-001
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Install Mesos
