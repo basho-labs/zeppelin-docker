@@ -33,7 +33,7 @@ RUN \
   cd /incubator-zeppelin && \
   git checkout v0.5.6
 WORKDIR /incubator-zeppelin
-RUN mvn package -Dspark.version=1.5.2 -Phadoop-2.6 -DskipTests
+RUN mvn package -Pspark-1.5 -Phadoop-2.6 -DskipTests
 COPY zeppelin-env.sh /incubator-zeppelin/conf/zeppelin-env.sh
 
 CMD ["bin/zeppelin.sh", "start"]
